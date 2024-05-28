@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Agri_Energy1.Models.Products>
+
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<h1>All Products</h1>
+
+<form asp-action="Index" method="get" class="form-inline">
+    <div class="form-group mb-2">
+        <label for="category" class="sr-only">Category</label>
+        <input type="text" name="category" class="form-control" id="category" placeholder="Category" />
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="startDate" class="sr-only">Start Date</label>
+        <input type="date" name="startDate" class="form-control" id="startDate" />
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+        <label for="endDate" class="sr-only">End Date</label>
+        <input type="date" name="endDate" class="form-control" id="endDate" />
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Filter</button>
+</form>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ProductionDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductionDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

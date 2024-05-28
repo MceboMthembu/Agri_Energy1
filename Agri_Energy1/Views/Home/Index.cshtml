@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to Agri-Energy Connect</h1>
+        <p class="lead">A comprehensive platform connecting farmers and employees to streamline agricultural operations and product management.</p>
+        <hr class="my-4">
+        <p>Explore the platform to learn more about our features and how we can help you manage your agricultural products efficiently.</p>
+        <a class="btn btn-primary btn-lg" href="/Farmers/Index" role="button">View Farmers (Employees Only)</a>
+        <a class="btn btn-success btn-lg" href="/Products/Index" role="button">View Products (Farmers Only)</a>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h2>For Farmers</h2>
+            <p>Our platform allows farmers to easily add and manage their products. With user-friendly features, you can keep track of your inventory and ensure your products are always up-to-date.</p>
+            <ul>
+                <li>Add new products with details like name, category, and production date</li>
+                <li>Manage your product listings efficiently</li>
+            </ul>
+            <a class="btn btn-outline-primary" href="/Identity/Account/Login">Log In</a>
+        </div>
+        <div class="col-md-6">
+            <h2>For Employees</h2>
+            <p>Employees can manage farmer profiles and access a comprehensive list of products from various farmers. Use our advanced filtering options to find exactly what you need.</p>
+            <ul>
+                <li>Add new farmer profiles with essential details</li>
+                <li>View and filter products by date range and category</li>
+            </ul>
+            <a class="btn btn-outline-success" href="/Identity/Account/Register">Register as Employee</a>
+        </div>
+    </div>
+
+    <footer class="mt-5">
+        <div class="text-center">
+            <p>&copy; 2024 The Independent Institute of Education (Pty) Ltd. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
+
+<!-- Bootstrap CSS -->
+<link href="~/css/mycsstheme.css" rel="stylesheet">
