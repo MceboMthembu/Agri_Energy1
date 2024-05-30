@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Agri_Energy1.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240523084101_CreateUserRolesTable")]
-    partial class CreateUserRolesTable
+    [Migration("20240528200158_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,66 @@ namespace Agri_Energy1.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Agri_Energy1.Models.FarmerProducts", b =>
+                {
+                    b.Property<int>("FarmerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FarmerId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("FarmerProducts");
+                });
+
+            modelBuilder.Entity("Agri_Energy1.Models.Farmers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Farmers");
+                });
+
+            modelBuilder.Entity("Agri_Energy1.Models.Products", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ProductionDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -201,6 +261,8 @@ namespace Agri_Energy1.Data.Migrations
 
                     b.HasKey("UserId", "RoleId");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("UserId", "RoleId"), false);
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
@@ -225,6 +287,25 @@ namespace Agri_Energy1.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Agri_Energy1.Models.FarmerProducts", b =>
+                {
+                    b.HasOne("Agri_Energy1.Models.Farmers", "Farmers")
+                        .WithMany("FarmerProducts")
+                        .HasForeignKey("FarmerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Agri_Energy1.Models.Products", "Products")
+                        .WithMany("FarmerProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Farmers");
+
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -276,6 +357,16 @@ namespace Agri_Energy1.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Agri_Energy1.Models.Farmers", b =>
+                {
+                    b.Navigation("FarmerProducts");
+                });
+
+            modelBuilder.Entity("Agri_Energy1.Models.Products", b =>
+                {
+                    b.Navigation("FarmerProducts");
                 });
 #pragma warning restore 612, 618
         }

@@ -258,6 +258,8 @@ namespace Agri_Energy1.Data.Migrations
 
                     b.HasKey("UserId", "RoleId");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("UserId", "RoleId"), false);
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);

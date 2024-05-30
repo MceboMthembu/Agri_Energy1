@@ -20,6 +20,12 @@ namespace Agri_Energy1.Data
         {
             base.OnModelCreating(modelBuilder);
 
+
+            // Configure AspNetUserRoles primary key as non-clustered
+            modelBuilder.Entity<IdentityUserRole<string>>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId })
+                .IsClustered(false);
+
             modelBuilder.Entity<FarmerProducts>()
                 .HasKey(fp => new { fp.FarmerId, fp.ProductId });
 
